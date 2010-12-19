@@ -1,17 +1,15 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* PngExceptionSoft - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
 
-class PngExceptionSoft
-extends PngException
+class PngExceptionSoft extends PngException
 {
-    PngExceptionSoft()
-    {
+    PngExceptionSoft() {
+	/* empty */
     }
-
-    PngExceptionSoft(String s)
-    {
-        super(s);
+    
+    PngExceptionSoft(String s) {
+	super(s);
     }
 }

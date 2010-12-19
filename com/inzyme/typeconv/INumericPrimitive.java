@@ -1,11 +1,15 @@
+/* INumericPrimitive - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.inzyme.typeconv;
 
-public interface INumericPrimitive extends IPrimitive {
-	public byte getByteValue();
-	
-	public short getShortValue();
-	
-	public int getIntValue();
-	
-	public long getLongValue();
+public interface INumericPrimitive extends IPrimitive
+{
+    public byte getByteValue();
+    
+    public short getShortValue();
+    
+    public int getIntValue();
+    
+    public long getLongValue();
 }

@@ -1,18 +1,15 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* Chunk_IEND - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
 
-final class Chunk_IEND
-extends Chunk
+final class Chunk_IEND extends Chunk
 {
-    Chunk_IEND()
-    {
-        super(IEND);
+    Chunk_IEND() {
+	super(1229278788);
     }
-
-    protected boolean multipleOK()
-    {
-        return false;
+    
+    protected boolean multipleOK() {
+	return false;
     }
 }

@@ -1,43 +1,36 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* Chunk_iCCP - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
-
 import java.io.IOException;
 
-final class Chunk_iCCP
-extends KeyValueChunk
+final class Chunk_iCCP extends KeyValueChunk
 {
-  Chunk_iCCP() { super(iCCP); }
-
-    protected boolean isCompressed()
-    {
-        return true;
+    Chunk_iCCP() {
+	super(1766015824);
     }
-
-    protected boolean multipleOK()
-    {
-        return false;
+    
+    protected boolean isCompressed() {
+	return true;
     }
-
-    protected boolean beforeIDAT()
-    {
-        return true;
+    
+    protected boolean multipleOK() {
+	return false;
     }
-
-    protected String getEncoding()
-    {
-        return PngImage.LATIN1_ENCODING;
+    
+    protected boolean beforeIDAT() {
+	return true;
     }
-
-    protected void readData()
-    throws IOException
-    {
-        if (img.data.palette != null)
-            throw new PngException("iCCP chunk must precede PLTE chunk");
-        super.readData();
-
-        img.data.properties.put("icc profile name", key);
-        img.data.properties.put("icc profile", value);
+    
+    protected String getEncoding() {
+	return "8859_1";
+    }
+    
+    protected void readData() throws IOException {
+	if (img.data.palette != null)
+	    throw new PngException("iCCP chunk must precede PLTE chunk");
+	super.readData();
+	img.data.properties.put("icc profile name", key);
+	img.data.properties.put("icc profile", value);
     }
 }

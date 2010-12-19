@@ -1,14 +1,26 @@
+/* ISynchronizeClientListener - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package org.jempeg.nodestore.event;
-
 import org.jempeg.nodestore.IDatabaseChange;
 import org.jempeg.nodestore.PlayerDatabase;
 
-public interface ISynchronizeClientListener {
-	public void downloadStarted(PlayerDatabase _playerDatabase);
-	public void downloadCompleted(PlayerDatabase _playerDatabase);
-	public void synchronizeStarted(PlayerDatabase _playerDatabase);
-	public void synchronizeStarted(IDatabaseChange _databaseChange);
-	public void synchronizeInProgress(IDatabaseChange _databaseChange, long _current, long _total);
-	public void synchronizeCompleted(IDatabaseChange _databaseChange, boolean _successfully);
-	public void synchronizeCompleted(PlayerDatabase _playerDatabase, boolean _succesfully);
+public interface ISynchronizeClientListener
+{
+    public void downloadStarted(PlayerDatabase playerdatabase);
+    
+    public void downloadCompleted(PlayerDatabase playerdatabase);
+    
+    public void synchronizeStarted(PlayerDatabase playerdatabase);
+    
+    public void synchronizeStarted(IDatabaseChange idatabasechange);
+    
+    public void synchronizeInProgress(IDatabaseChange idatabasechange, long l,
+				      long l_0_);
+    
+    public void synchronizeCompleted(IDatabaseChange idatabasechange,
+				     boolean bool);
+    
+    public void synchronizeCompleted(PlayerDatabase playerdatabase,
+				     boolean bool);
 }

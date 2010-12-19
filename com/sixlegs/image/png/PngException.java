@@ -1,27 +1,22 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* PngException - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
-
 import java.io.IOException;
 
-class PngException
-extends IOException
+class PngException extends IOException
 {
     String msg = null;
-
-    PngException()
-    {
+    
+    PngException() {
+	/* empty */
     }
-
-    PngException(String s)
-    {
-        msg = s;
+    
+    PngException(String s) {
+	msg = s;
     }
-
-    public String toString()
-    {
-        return msg;
+    
+    public String toString() {
+	return msg;
     }
 }
-

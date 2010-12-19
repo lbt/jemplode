@@ -1,17 +1,15 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* Chunk_IDAT - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
 
-final class Chunk_IDAT
-extends Chunk
+final class Chunk_IDAT extends Chunk
 {
-    Chunk_IDAT()
-    {
-        super(IDAT);
+    Chunk_IDAT() {
+	super(1229209940);
     }
-
-    protected void readData()
-    { }
+    
+    protected void readData() {
+	/* empty */
+    }
 }
-

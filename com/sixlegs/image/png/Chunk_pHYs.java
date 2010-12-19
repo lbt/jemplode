@@ -1,38 +1,34 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* Chunk_pHYs - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
 import java.io.IOException;
 
-final class Chunk_pHYs
-extends Chunk
+final class Chunk_pHYs extends Chunk
 {
-    Chunk_pHYs()
-    {
-        super(pHYs);
+    Chunk_pHYs() {
+	super(1883789683);
     }
-
-    protected boolean multipleOK()
-    {
-        return false;
+    
+    protected boolean multipleOK() {
+	return false;
     }
-
-    protected boolean beforeIDAT()
-    {
-        return true;
+    
+    protected boolean beforeIDAT() {
+	return true;
     }
-
-    protected void readData()
-    throws IOException
-    {
-        long pixelsPerUnitX = in_data.readUnsignedInt();
-        long pixelsPerUnitY = in_data.readUnsignedInt();
-        int unit = in_data.readUnsignedByte();
-        if (unit != PngImage.UNIT_UNKNOWN && unit != PngImage.UNIT_METER)
-            throw new PngExceptionSoft("Illegal pHYs chunk unit specifier: " + unit);
-
-        img.data.properties.put("pixel dimensions x", new Long(pixelsPerUnitX));
-        img.data.properties.put("pixel dimensions y", new Long(pixelsPerUnitY));
-        img.data.properties.put("pixel dimensions unit", new Integer(unit));
-    }    
+    
+    protected void readData() throws IOException {
+	long pixelsPerUnitX = in_data.readUnsignedInt();
+	long pixelsPerUnitY = in_data.readUnsignedInt();
+	int unit = in_data.readUnsignedByte();
+	if (unit != 0 && unit != 1)
+	    throw new PngExceptionSoft("Illegal pHYs chunk unit specifier: "
+				       + unit);
+	img.data.properties.put("pixel dimensions x",
+				new Long(pixelsPerUnitX));
+	img.data.properties.put("pixel dimensions y",
+				new Long(pixelsPerUnitY));
+	img.data.properties.put("pixel dimensions unit", new Integer(unit));
+    }
 }

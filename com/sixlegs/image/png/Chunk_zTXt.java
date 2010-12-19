@@ -1,28 +1,23 @@
-// Copyright (C) 1998, 1999, 2001 Chris Nokleberg
-// Please see included LICENSE.TXT
-
+/* Chunk_zTXt - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.sixlegs.image.png;
 
-final class Chunk_zTXt
-extends AbstractTextChunk
+final class Chunk_zTXt extends AbstractTextChunk
 {
-    Chunk_zTXt()
-    {
-        super(zTXt);
+    Chunk_zTXt() {
+	super(2052348020);
     }
-
-    protected boolean isCompressed()
-    {
-        return true;
+    
+    protected boolean isCompressed() {
+	return true;
     }
-
-    public String getTranslatedKeyword()
-    {
-        return null;
+    
+    public String getTranslatedKeyword() {
+	return null;
     }
-
-    public String getLanguage()
-    {
-        return null;
+    
+    public String getLanguage() {
+	return null;
     }
 }

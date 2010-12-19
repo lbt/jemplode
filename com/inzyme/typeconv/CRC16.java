@@ -1,425 +1,109 @@
-/**
-* This file is licensed under the GPL.
-*
-* See the LICENSE0 file included in this release, or
-* http://www.opensource.org/licenses/gpl-license.html
-* for the details of the license.
-*/
+/* CRC16 - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package com.inzyme.typeconv;
 
-/**
-* The CRC implementation that was "borrowed" from our friends at Empeg.
-*
-* @author somebody at Empeg
-* @version $Revision: 1.2 $
-*/
-public class CRC16 {
-	/* Fast table-driven CRC functions for ZMODEM
-	 * extracted from RBSB.C by Chuck Forsberg, Omen Technology, Inc.
-	 *
-	 * crctab calculated by Mark G. Mendel, Network Systems Corporation */
-	public static final int[] crc16tab =
-		{
-			0x0000,
-			0x1021,
-			0x2042,
-			0x3063,
-			0x4084,
-			0x50a5,
-			0x60c6,
-			0x70e7,
-			0x8108,
-			0x9129,
-			0xa14a,
-			0xb16b,
-			0xc18c,
-			0xd1ad,
-			0xe1ce,
-			0xf1ef,
-			0x1231,
-			0x0210,
-			0x3273,
-			0x2252,
-			0x52b5,
-			0x4294,
-			0x72f7,
-			0x62d6,
-			0x9339,
-			0x8318,
-			0xb37b,
-			0xa35a,
-			0xd3bd,
-			0xc39c,
-			0xf3ff,
-			0xe3de,
-			0x2462,
-			0x3443,
-			0x0420,
-			0x1401,
-			0x64e6,
-			0x74c7,
-			0x44a4,
-			0x5485,
-			0xa56a,
-			0xb54b,
-			0x8528,
-			0x9509,
-			0xe5ee,
-			0xf5cf,
-			0xc5ac,
-			0xd58d,
-			0x3653,
-			0x2672,
-			0x1611,
-			0x0630,
-			0x76d7,
-			0x66f6,
-			0x5695,
-			0x46b4,
-			0xb75b,
-			0xa77a,
-			0x9719,
-			0x8738,
-			0xf7df,
-			0xe7fe,
-			0xd79d,
-			0xc7bc,
-			0x48c4,
-			0x58e5,
-			0x6886,
-			0x78a7,
-			0x0840,
-			0x1861,
-			0x2802,
-			0x3823,
-			0xc9cc,
-			0xd9ed,
-			0xe98e,
-			0xf9af,
-			0x8948,
-			0x9969,
-			0xa90a,
-			0xb92b,
-			0x5af5,
-			0x4ad4,
-			0x7ab7,
-			0x6a96,
-			0x1a71,
-			0x0a50,
-			0x3a33,
-			0x2a12,
-			0xdbfd,
-			0xcbdc,
-			0xfbbf,
-			0xeb9e,
-			0x9b79,
-			0x8b58,
-			0xbb3b,
-			0xab1a,
-			0x6ca6,
-			0x7c87,
-			0x4ce4,
-			0x5cc5,
-			0x2c22,
-			0x3c03,
-			0x0c60,
-			0x1c41,
-			0xedae,
-			0xfd8f,
-			0xcdec,
-			0xddcd,
-			0xad2a,
-			0xbd0b,
-			0x8d68,
-			0x9d49,
-			0x7e97,
-			0x6eb6,
-			0x5ed5,
-			0x4ef4,
-			0x3e13,
-			0x2e32,
-			0x1e51,
-			0x0e70,
-			0xff9f,
-			0xefbe,
-			0xdfdd,
-			0xcffc,
-			0xbf1b,
-			0xaf3a,
-			0x9f59,
-			0x8f78,
-			0x9188,
-			0x81a9,
-			0xb1ca,
-			0xa1eb,
-			0xd10c,
-			0xc12d,
-			0xf14e,
-			0xe16f,
-			0x1080,
-			0x00a1,
-			0x30c2,
-			0x20e3,
-			0x5004,
-			0x4025,
-			0x7046,
-			0x6067,
-			0x83b9,
-			0x9398,
-			0xa3fb,
-			0xb3da,
-			0xc33d,
-			0xd31c,
-			0xe37f,
-			0xf35e,
-			0x02b1,
-			0x1290,
-			0x22f3,
-			0x32d2,
-			0x4235,
-			0x5214,
-			0x6277,
-			0x7256,
-			0xb5ea,
-			0xa5cb,
-			0x95a8,
-			0x8589,
-			0xf56e,
-			0xe54f,
-			0xd52c,
-			0xc50d,
-			0x34e2,
-			0x24c3,
-			0x14a0,
-			0x0481,
-			0x7466,
-			0x6447,
-			0x5424,
-			0x4405,
-			0xa7db,
-			0xb7fa,
-			0x8799,
-			0x97b8,
-			0xe75f,
-			0xf77e,
-			0xc71d,
-			0xd73c,
-			0x26d3,
-			0x36f2,
-			0x0691,
-			0x16b0,
-			0x6657,
-			0x7676,
-			0x4615,
-			0x5634,
-			0xd94c,
-			0xc96d,
-			0xf90e,
-			0xe92f,
-			0x99c8,
-			0x89e9,
-			0xb98a,
-			0xa9ab,
-			0x5844,
-			0x4865,
-			0x7806,
-			0x6827,
-			0x18c0,
-			0x08e1,
-			0x3882,
-			0x28a3,
-			0xcb7d,
-			0xdb5c,
-			0xeb3f,
-			0xfb1e,
-			0x8bf9,
-			0x9bd8,
-			0xabbb,
-			0xbb9a,
-			0x4a75,
-			0x5a54,
-			0x6a37,
-			0x7a16,
-			0x0af1,
-			0x1ad0,
-			0x2ab3,
-			0x3a92,
-			0xfd2e,
-			0xed0f,
-			0xdd6c,
-			0xcd4d,
-			0xbdaa,
-			0xad8b,
-			0x9de8,
-			0x8dc9,
-			0x7c26,
-			0x6c07,
-			0x5c64,
-			0x4c45,
-			0x3ca2,
-			0x2c83,
-			0x1ce0,
-			0x0cc1,
-			0xef1f,
-			0xff3e,
-			0xcf5d,
-			0xdf7c,
-			0xaf9b,
-			0xbfba,
-			0x8fd9,
-			0x9ff8,
-			0x6e17,
-			0x7e36,
-			0x4e55,
-			0x5e74,
-			0x2e93,
-			0x3eb2,
-			0x0ed1,
-			0x1ef0 };
-
-	private int myValue;
-
-	/**
-	* Creates a new CRC16 and resets the value
-	*/
-	public CRC16() {
-		reset();
-	}
-
-	/**
-	* Updates the CRC with an array of unsigned 8-bit values (cast as bytes)
-	*
-	* @param _value an array of unsigned 8-bit values
-	*/
-	public final void update(byte[] _buffer) {
-		for (int i = 0; i < _buffer.length; i++) {
-			update(_buffer[i]);
-		}
-	}
-
-	/**
-	* Updates the CRC with an array of unsigned 8-bit values (cast as bytes)
-	*
-	* @param _value an array of unsigned 8-bit values
-	*/
-	public final void update(byte[] _buffer, int _offset, int _length) {
-		int endOffset = _offset + _length;
-		for (int i = _offset; i < endOffset; i++) {
-			update(_buffer[i]);
-		}
-	}
-
-	/**
-	* Updates the CRC with an array of unsigned 8-bit values (cast as shorts)
-	*
-	* @param _value an array of unsigned 8-bit values
-	*/
-	public final void update(short[] _buffer) {
-		for (int i = 0; i < _buffer.length; i++) {
-			update(_buffer[i]);
-		}
-	}
-
-	/**
-	* Updates the CRC with an array of unsigned 8-bit values (cast as ints)
-	*
-	* @param _value an array of unsigned 8-bit values
-	*/
-	public final void update(int[] _buffer) {
-		for (int i = 0; i < _buffer.length; i++) {
-			update(_buffer[i]);
-		}
-	}
-
-	/**
-	* Updates the CRC with a signed 8-bit value
-	*
-	* @param _value a signed 8-bit value
-	*/
-	public final void updateSigned8(int _value) {
-		update(_value);
-	}
-
-	/**
-	* Updates the CRC with an unsigned 8-bit value
-	*
-	* @param _value an unsigned 8-bit value
-	*/
-	public final void updateUnsigned8(int _value) {
-		update(_value);
-	}
-
-	/**
-	* Updates the CRC with a signed 16-bit value
-	*
-	* @param _value a signed 16-bit value
-	*/
-	public final void updateSigned16(int _value) {
-		byte[] b = LittleEndianUtils.toSigned16Array(_value);
-		update(b);
-	}
-
-	/**
-	* Updates the CRC with an unsigned 16-bit value
-	*
-	* @param _value an unsigned 16-bit value
-	*/
-	public final void updateUnsigned16(int _value) {
-		byte[] b = LittleEndianUtils.toUnsigned16Array(_value);
-		update(b);
-	}
-
-	/**
-	* Updates the CRC with an unsigned 24-bit value
-	*
-	* @param _value an unsigned 24-bit value
-	*/
-	public final void updateUnsigned24(long _value) {
-		byte[] b = LittleEndianUtils.toUnsigned24Array(_value);
-		update(b);
-	}
-
-	/**
-	* Updates the CRC with a signed 32-bit value
-	*
-	* @param _value a signed 32-bit value
-	*/
-	public final void updateSigned32(int _value) {
-		byte[] b = LittleEndianUtils.toSigned32Array(_value);
-		update(b);
-	}
-
-	/**
-	* Updates the CRC with an unsigned 32-bit value
-	*
-	* @param _value an unsigned 32-bit value
-	*/
-	public final void updateUnsigned32(long _value) {
-		byte[] b = LittleEndianUtils.toUnsigned32Array(_value);
-		update(b);
-	}
-
-	/**
-	* Updates the value with the unsigned 8-bit value
-	*
-	* @param _value an unsigned 8-bit value
-	*/
-	public final void update(int _value) {
-		int value = TypeConversionUtils.toUnsigned8(_value);
-		myValue = (crc16tab[((myValue >> 8) & 255)] ^ (myValue << 8) ^ (value)) & 0x0000FFFF;
-	}
-
-	/**
-	* Returns the current CRC value
-	*/
-	public final UINT16 getValue() {
-		return new UINT16(myValue);
-	}
-
-	/**
-	* Resets the CRC value
-	*/
-	public final void reset() {
-		myValue = 0;
-	}
+public class CRC16
+{
+    public static final int[] crc16tab
+	= { 0, 4129, 8258, 12387, 16516, 20645, 24774, 28903, 33032, 37161,
+	    41290, 45419, 49548, 53677, 57806, 61935, 4657, 528, 12915, 8786,
+	    21173, 17044, 29431, 25302, 37689, 33560, 45947, 41818, 54205,
+	    50076, 62463, 58334, 9314, 13379, 1056, 5121, 25830, 29895, 17572,
+	    21637, 42346, 46411, 34088, 38153, 58862, 62927, 50604, 54669,
+	    13907, 9842, 5649, 1584, 30423, 26358, 22165, 18100, 46939, 42874,
+	    38681, 34616, 63455, 59390, 55197, 51132, 18628, 22757, 26758,
+	    30887, 2112, 6241, 10242, 14371, 51660, 55789, 59790, 63919, 35144,
+	    39273, 43274, 47403, 23285, 19156, 31415, 27286, 6769, 2640, 14899,
+	    10770, 56317, 52188, 64447, 60318, 39801, 35672, 47931, 43802,
+	    27814, 31879, 19684, 23749, 11298, 15363, 3168, 7233, 60846, 64911,
+	    52716, 56781, 44330, 48395, 36200, 40265, 32407, 28342, 24277,
+	    20212, 15891, 11826, 7761, 3696, 65439, 61374, 57309, 53244, 48923,
+	    44858, 40793, 36728, 37256, 33193, 45514, 41451, 53516, 49453,
+	    61774, 57711, 4224, 161, 12482, 8419, 20484, 16421, 28742, 24679,
+	    33721, 37784, 41979, 46042, 49981, 54044, 58239, 62302, 689, 4752,
+	    8947, 13010, 16949, 21012, 25207, 29270, 46570, 42443, 38312,
+	    34185, 62830, 58703, 54572, 50445, 13538, 9411, 5280, 1153, 29798,
+	    25671, 21540, 17413, 42971, 47098, 34713, 38840, 59231, 63358,
+	    50973, 55100, 9939, 14066, 1681, 5808, 26199, 30326, 17941, 22068,
+	    55628, 51565, 63758, 59695, 39368, 35305, 47498, 43435, 22596,
+	    18533, 30726, 26663, 6336, 2273, 14466, 10403, 52093, 56156, 60223,
+	    64286, 35833, 39896, 43963, 48026, 19061, 23124, 27191, 31254,
+	    2801, 6864, 10931, 14994, 64814, 60687, 56684, 52557, 48554, 44427,
+	    40424, 36297, 31782, 27655, 23652, 19525, 15522, 11395, 7392, 3265,
+	    61215, 65342, 53085, 57212, 44955, 49082, 36825, 40952, 28183,
+	    32310, 20053, 24180, 11923, 16050, 3793, 7920 };
+    private int myValue;
+    
+    public CRC16() {
+	reset();
+    }
+    
+    public final void update(byte[] _buffer) {
+	for (int i = 0; i < _buffer.length; i++)
+	    update(_buffer[i]);
+    }
+    
+    public final void update(byte[] _buffer, int _offset, int _length) {
+	int endOffset = _offset + _length;
+	for (int i = _offset; i < endOffset; i++)
+	    update(_buffer[i]);
+    }
+    
+    public final void update(short[] _buffer) {
+	for (int i = 0; i < _buffer.length; i++)
+	    update(_buffer[i]);
+    }
+    
+    public final void update(int[] _buffer) {
+	for (int i = 0; i < _buffer.length; i++)
+	    update(_buffer[i]);
+    }
+    
+    public final void updateSigned8(int _value) {
+	update(_value);
+    }
+    
+    public final void updateUnsigned8(int _value) {
+	update(_value);
+    }
+    
+    public final void updateSigned16(int _value) {
+	byte[] b = LittleEndianUtils.toSigned16Array(_value);
+	update(b);
+    }
+    
+    public final void updateUnsigned16(int _value) {
+	byte[] b = LittleEndianUtils.toUnsigned16Array(_value);
+	update(b);
+    }
+    
+    public final void updateUnsigned24(long _value) {
+	byte[] b = LittleEndianUtils.toUnsigned24Array(_value);
+	update(b);
+    }
+    
+    public final void updateSigned32(int _value) {
+	byte[] b = LittleEndianUtils.toSigned32Array((long) _value);
+	update(b);
+    }
+    
+    public final void updateUnsigned32(long _value) {
+	byte[] b = LittleEndianUtils.toUnsigned32Array(_value);
+	update(b);
+    }
+    
+    public final void update(int _value) {
+	int value = TypeConversionUtils.toUnsigned8(_value);
+	myValue
+	    = (crc16tab[myValue >> 8 & 0xff] ^ myValue << 8 ^ value) & 0xffff;
+    }
+    
+    public final UINT16 getValue() {
+	return new UINT16(myValue);
+    }
+    
+    public final void reset() {
+	myValue = 0;
+    }
 }
